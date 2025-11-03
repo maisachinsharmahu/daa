@@ -29,18 +29,15 @@ long long minMultiplications(int p[], int n)
 
 int main()
 {
-    const int n = 50; // number of matrices
+    const int n = 50;
     int bestCase[MAX + 1], averageCase[MAX + 1], worstCase[MAX + 1];
 
-    // Best Case: increasing dimensions
     for (int i = 0; i <= n; i++)
         bestCase[i] = i + 10;
 
-    // Average Case: random-ish dimensions
     for (int i = 0; i <= n; i++)
         averageCase[i] = 10 + (i * 7) % 50;
 
-    // Worst Case: alternating large-small dimensions
     for (int i = 0; i <= n; i++)
         worstCase[i] = (i % 2 == 0) ? 100 + i : 10 + i;
 
