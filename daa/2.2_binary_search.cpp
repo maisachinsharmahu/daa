@@ -43,7 +43,7 @@ int main()
     {
         cout << "\nBinary Search Performance Analysis\n";
         cout << "Array size: " << SIZE << " elements\n";
-
+       
         cout << "1. Best Case (Element at middle position)\n";
         cout << "2. Average Case (Element requires average comparisons)\n";
         cout << "3. Worst Case (Element at leaf level)\n";
