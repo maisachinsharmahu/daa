@@ -1,0 +1,203 @@
+===============================================================================
+                          PRACTICAL 3 - HUFFMAN CODING ALGORITHM
+                         Design and Analysis of Algorithms
+                              B.Tech CST - Semester 5
+===============================================================================
+
+OBJECTIVE:
+To implement Huffman Coding algorithm for data compression and analyze its 
+time complexity in different scenarios. Understanding the greedy approach 
+used in building optimal prefix-free binary codes for data compression.
+
+===============================================================================
+
+3.1 HUFFMAN CODING
+
+THEORY:
+Huffman Coding is a lossless data compression algorithm that uses variable-length
+prefix-free binary codes for different characters based on their frequencies.
+Characters with higher frequency get shorter codes, while less frequent characters
+get longer codes. This greedy algorithm builds an optimal binary tree (Huffman Tree)
+by repeatedly merging the two nodes with lowest frequencies until only one node
+(root) remains. The algorithm guarantees optimal compression for the given character
+frequencies.
+
+ALGORITHM:
+1. Calculate frequency of each character in the input text
+2. Create leaf nodes for each character with their frequencies
+3. Build a min-heap (priority queue) with all leaf nodes
+4. While there are more than one node in the queue:
+   a. Extract two nodes with minimum frequency
+   b. Create a new internal node with frequency = sum of two nodes
+   c. Make the two extracted nodes as children of new node
+   d. Insert the new node back into the priority queue
+5. The remaining node is the root of Huffman Tree
+6. Generate binary codes by traversing from root to leaves
+7. Encode the text using generated codes
+
+WORKING MECHANISM:
+- Uses greedy approach to build optimal tree
+- Employs min-heap for efficient minimum extraction
+- Generates prefix-free codes (no code is prefix of another)
+- Left child represents '0' bit, right child represents '1' bit
+- Leaf nodes contain characters, internal nodes contain frequencies
+
+TIME COMPLEXITY ANALYSIS:
+
+BEST CASE: O(n + k log k)
+- Occurs when all characters have equal frequency
+- Building frequency map: O(n) where n = text length
+- Building heap: O(k) where k = unique characters
+- Tree construction: O(k log k) for k-1 merge operations
+- Code generation: O(k) for traversing tree
+- Text encoding: O(n) for processing each character
+- Overall: O(n + k log k)
+
+AVERAGE CASE: O(n + k log k)
+- Occurs with random text having varied character frequencies
+- Same complexity as best case due to algorithm structure
+- Performance depends on number of unique characters (k)
+- For typical text: k << n, so complexity approaches O(n)
+
+WORST CASE: O(n + k log k)
+- Occurs with highly skewed frequency distribution
+- One character dominates, others have very low frequency
+- Still maintains same complexity bounds
+- Tree becomes more unbalanced but doesn't affect asymptotic complexity
+
+SPACE COMPLEXITY: O(k)
+- Space for frequency map: O(k)
+- Space for priority queue: O(k)
+- Space for Huffman tree: O(k) nodes
+- Space for code table: O(k)
+- Overall space complexity: O(k)
+
+===============================================================================
+
+DETAILED COMPLEXITY BREAKDOWN:
+
+OPERATION               | TIME COMPLEXITY | SPACE COMPLEXITY | DESCRIPTION
+------------------------|-----------------|------------------|-------------
+Frequency Calculation   | O(n)           | O(k)             | Scan entire text
+Heap Construction      | O(k)           | O(k)             | Build min-heap
+Tree Building          | O(k log k)     | O(k)             | k-1 merge operations
+Code Generation        | O(k)           | O(k)             | Tree traversal
+Text Encoding          | O(n)           | O(encoded_size)  | Replace each character
+
+Where: n = input text length, k = number of unique characters
+
+===============================================================================
+
+COMPRESSION ANALYSIS:
+
+BEST CASE COMPRESSION:
+- All characters have equal frequency
+- Tree is perfectly balanced
+- Each character gets log₂(k) bits
+- Compression ratio: 8 : log₂(k)
+
+AVERAGE CASE COMPRESSION:
+- Characters have varied frequencies
+- More frequent characters get shorter codes
+- Typical compression ratio: 2:1 to 4:1
+
+WORST CASE COMPRESSION:
+- Highly skewed frequency distribution
+- Most frequent character gets 1 bit
+- Least frequent characters get very long codes
+- Can achieve very high compression ratios
+
+===============================================================================
+
+HUFFMAN TREE PROPERTIES:
+
+1. **Binary Tree**: Each internal node has exactly two children
+2. **Full Tree**: All internal nodes have two children
+3. **Prefix Property**: No code word is prefix of another
+4. **Optimal**: Produces minimum expected code length
+5. **Unique**: Tree structure may vary but total bits remain optimal
+
+===============================================================================
+
+ADVANTAGES:
+1. **Optimal Compression**: Guarantees minimum average code length
+2. **Prefix-Free**: No ambiguity in decoding
+3. **Lossless**: Original data can be perfectly reconstructed
+4. **Adaptive**: Works well with any character frequency distribution
+5. **Simple Implementation**: Straightforward greedy algorithm
+
+DISADVANTAGES:
+1. **Two-Pass Algorithm**: Requires complete frequency analysis first
+2. **Overhead**: Must store frequency table or tree for decoding
+3. **Fixed Table**: Cannot adapt during encoding process
+4. **Small Files**: May not compress well due to overhead
+5. **Character-Based**: Works on fixed symbols, not patterns
+
+===============================================================================
+
+PRACTICAL APPLICATIONS:
+
+1. **File Compression**: ZIP, GZIP, PNG image compression
+2. **Data Transmission**: Reducing bandwidth requirements
+3. **Storage Systems**: Database compression, file systems
+4. **Multimedia**: JPEG (modified Huffman), MP3 compression
+5. **Network Protocols**: HTTP compression, data streaming
+6. **Embedded Systems**: Memory-constrained environments
+7. **Cryptography**: As part of compression before encryption
+
+===============================================================================
+
+COMPARISON WITH OTHER COMPRESSION ALGORITHMS:
+
+ALGORITHM        | TYPE      | COMPRESSION | SPEED   | COMPLEXITY
+-----------------|-----------|-------------|---------|------------
+Huffman Coding   | Lossless  | Good        | Fast    | O(n + k log k)
+LZW (GIF)        | Lossless  | Better      | Medium  | O(n)
+Run Length       | Lossless  | Variable    | Very Fast| O(n)
+Arithmetic       | Lossless  | Better      | Slow    | O(n)
+Shannon-Fano     | Lossless  | Good        | Fast    | O(n + k log k)
+
+===============================================================================
+
+IMPLEMENTATION VARIATIONS:
+
+1. **Canonical Huffman**: Standardized code assignment
+2. **Adaptive Huffman**: Updates frequencies during encoding
+3. **Modified Huffman**: Used in JPEG, handles run-length encoding
+4. **Huffman with Escape**: Handles unknown characters
+5. **Multi-way Huffman**: Uses more than binary tree
+
+===============================================================================
+
+PERFORMANCE OPTIMIZATION TECHNIQUES:
+
+1. **Efficient Priority Queue**: Use binary heap implementation
+2. **Code Table Caching**: Pre-compute codes for faster encoding
+3. **Bit-Level Operations**: Pack bits efficiently for output
+4. **Memory Management**: Reuse nodes to reduce allocation overhead
+5. **Parallel Processing**: Build subtrees independently
+
+===============================================================================
+
+EXAMPLE ANALYSIS:
+
+For text "ABRACADABRA" (11 characters):
+- Character frequencies: A:5, B:2, R:2, C:1, D:1
+- Original size: 11 × 8 = 88 bits
+- Huffman codes: A:0, B:110, R:111, C:100, D:101
+- Encoded size: 5×1 + 2×3 + 2×3 + 1×3 + 1×3 = 23 bits
+- Compression ratio: 88:23 ≈ 3.83:1
+
+===============================================================================
+
+CONCLUSION:
+Huffman Coding represents an optimal greedy algorithm for lossless data compression
+when character frequencies are known. Its O(n + k log k) time complexity makes it
+efficient for most practical applications. While it requires two passes over the
+data and storage of the frequency table, its guaranteed optimality and simplicity
+make it a fundamental algorithm in computer science. The algorithm's performance
+is primarily determined by the number of unique characters rather than the total
+text length, making it particularly effective for large texts with limited
+character sets.
+
+===============================================================================

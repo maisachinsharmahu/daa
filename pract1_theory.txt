@@ -1,0 +1,195 @@
+===============================================================================
+                          PRACTICAL 1 - SORTING ALGORITHMS
+                         Design and Analysis of Algorithms
+                              B.Tech CST - Semester 5
+===============================================================================
+
+OBJECTIVE:
+To implement and analyze various sorting algorithms including Bubble Sort, 
+Insertion Sort, Selection Sort, Merge Sort, Quick Sort, and Heap Sort, and 
+compare their time complexities in different scenarios.
+
+===============================================================================
+
+1.1 BUBBLE SORT
+
+THEORY:
+Bubble Sort is a simple comparison-based sorting algorithm that repeatedly 
+steps through the list, compares adjacent elements and swaps them if they 
+are in the wrong order. The pass through the list is repeated until the 
+list is sorted. The algorithm gets its name from the way smaller elements 
+"bubble" to the top of the list through consecutive comparisons and swaps.
+
+ALGORITHM:
+1. Start with the first element of the array
+2. Compare adjacent elements and swap them if they are in wrong order
+3. Continue this process for the entire array
+4. After each pass, the largest element reaches its correct position
+5. Repeat until no more swaps are needed
+
+TIME COMPLEXITY:
+- Best Case: O(n) - When array is already sorted
+- Average Case: O(n²) - When array elements are in random order  
+- Worst Case: O(n²) - When array is sorted in reverse order
+
+SPACE COMPLEXITY: O(1) - Only uses constant extra memory space
+
+===============================================================================
+
+1.2 INSERTION SORT
+
+THEORY:
+Insertion Sort builds the final sorted array one item at a time. It works 
+by taking elements from the unsorted portion and inserting them at the 
+correct position in the sorted portion. It is similar to sorting playing 
+cards in your hands - you pick up cards one by one and insert each into 
+its proper position among the previously sorted cards.
+
+ALGORITHM:
+1. Start from the second element (index 1) as the first element is considered sorted
+2. Compare the current element with the previous elements
+3. Shift all greater elements one position ahead
+4. Insert the current element at its correct position
+5. Repeat for all elements in the array
+
+TIME COMPLEXITY:
+- Best Case: O(n) - When array is already sorted
+- Average Case: O(n²) - When array elements are in random order
+- Worst Case: O(n²) - When array is sorted in reverse order
+
+SPACE COMPLEXITY: O(1) - Only uses constant extra memory space
+
+===============================================================================
+
+1.3 SELECTION SORT
+
+THEORY:
+Selection Sort divides the input list into two parts: a sorted subarray and 
+an unsorted subarray. Initially, the sorted subarray is empty and the 
+unsorted subarray is the entire input list. The algorithm repeatedly finds 
+the minimum element from the unsorted subarray and moves it to the beginning 
+of the sorted subarray.
+
+ALGORITHM:
+1. Find the minimum element in the array
+2. Swap it with the first element
+3. Find the minimum element in the remaining array (excluding the first element)
+4. Swap it with the second element
+5. Continue this process until the entire array is sorted
+
+TIME COMPLEXITY:
+- Best Case: O(n²) - Even if array is sorted, algorithm checks all elements
+- Average Case: O(n²) - Array elements are in random order
+- Worst Case: O(n²) - Array is sorted in reverse order
+
+SPACE COMPLEXITY: O(1) - Only uses constant extra memory space
+
+===============================================================================
+
+1.4 MERGE SORT
+
+THEORY:
+Merge Sort is a divide-and-conquer algorithm that divides the input array 
+into two halves, recursively sorts both halves, and then merges the sorted 
+halves. The merge operation is the key process that assumes the two arrays 
+are sorted and merges them into a single sorted array. It is a stable sort 
+and guarantees O(n log n) time complexity in all cases.
+
+ALGORITHM:
+1. Divide the unsorted array into two subarrays of roughly equal size
+2. Recursively sort each subarray
+3. Merge the two sorted subarrays back into one sorted array
+4. The merge process combines two sorted arrays into one sorted array
+
+TIME COMPLEXITY:
+- Best Case: O(n log n) - Consistent performance regardless of input
+- Average Case: O(n log n) - Divide and conquer ensures logarithmic levels
+- Worst Case: O(n log n) - Always divides array into equal halves
+
+SPACE COMPLEXITY: O(n) - Requires additional space for temporary arrays
+
+===============================================================================
+
+1.5 QUICK SORT
+
+THEORY:
+Quick Sort is a divide-and-conquer algorithm that picks a 'pivot' element 
+from the array and partitions the other elements into two subarrays according 
+to whether they are less than or greater than the pivot. The subarrays are 
+then sorted recursively. The choice of pivot and partitioning scheme can 
+significantly affect the algorithm's performance.
+
+ALGORITHM:
+1. Choose a pivot element from the array
+2. Partition the array so that elements smaller than pivot are on left
+3. Elements greater than pivot are placed on the right
+4. Recursively apply the same process to left and right subarrays
+5. Combine the results to get the sorted array
+
+TIME COMPLEXITY:
+- Best Case: O(n log n) - When pivot divides array into equal halves
+- Average Case: O(n log n) - Random pivot selection usually gives good partitions
+- Worst Case: O(n²) - When pivot is always smallest/largest element (sorted array)
+
+SPACE COMPLEXITY: O(log n) - Due to recursive calls on the stack
+
+===============================================================================
+
+1.6 HEAP SORT
+
+THEORY:
+Heap Sort is a comparison-based sorting algorithm that uses a binary heap 
+data structure. It first builds a max heap from the input data, then 
+repeatedly extracts the maximum element from the heap and rebuilds the heap 
+until all elements are sorted. The algorithm combines the better attributes 
+of merge sort and insertion sort.
+
+ALGORITHM:
+1. Build a max heap from the input array
+2. The largest element is now at the root of the heap
+3. Replace the root with the last element and reduce heap size by 1
+4. Heapify the root to maintain max heap property
+5. Repeat steps 2-4 until heap size becomes 1
+
+TIME COMPLEXITY:
+- Best Case: O(n log n) - Building heap takes O(n), extracting n elements takes O(n log n)
+- Average Case: O(n log n) - Consistent performance due to heap properties
+- Worst Case: O(n log n) - Maximum height of heap is always log n
+
+SPACE COMPLEXITY: O(1) - Sorts in-place, only uses constant extra space
+
+===============================================================================
+
+COMPARATIVE ANALYSIS:
+
+ALGORITHM        | BEST CASE | AVERAGE CASE | WORST CASE | SPACE COMPLEXITY | STABLE
+-----------------|-----------|--------------|------------|------------------|--------
+Bubble Sort      | O(n)      | O(n²)        | O(n²)      | O(1)            | Yes
+Insertion Sort   | O(n)      | O(n²)        | O(n²)      | O(1)            | Yes
+Selection Sort   | O(n²)     | O(n²)        | O(n²)      | O(1)            | No
+Merge Sort       | O(n log n)| O(n log n)   | O(n log n) | O(n)            | Yes
+Quick Sort       | O(n log n)| O(n log n)   | O(n²)      | O(log n)        | No
+Heap Sort        | O(n log n)| O(n log n)   | O(n log n) | O(1)            | No
+
+===============================================================================
+
+PRACTICAL APPLICATIONS:
+
+1. Bubble Sort: Educational purposes, small datasets
+2. Insertion Sort: Small datasets, nearly sorted data, online algorithms
+3. Selection Sort: Memory-constrained environments, small datasets
+4. Merge Sort: External sorting, stable sorting requirements, linked lists
+5. Quick Sort: General-purpose sorting, average case performance priority
+6. Heap Sort: Systems with memory constraints, guaranteed O(n log n) performance
+
+===============================================================================
+
+CONCLUSION:
+The choice of sorting algorithm depends on various factors including data size,
+memory constraints, stability requirements, and performance guarantees. While
+simple algorithms like bubble sort and insertion sort are easy to implement,
+advanced algorithms like merge sort and quick sort provide better performance
+for larger datasets. Heap sort offers the advantage of guaranteed O(n log n)
+performance with minimal space requirements.
+
+===============================================================================
